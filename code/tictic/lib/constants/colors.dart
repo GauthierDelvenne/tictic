@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tictic/constants/fonts.dart';
-import 'fonts.dart';
 
 const kMainColor = Color.fromRGBO(52, 78, 65, 1);
 const kSecondaryColor = Color.fromRGBO(88, 129, 87, 1);
@@ -59,7 +58,6 @@ final kAppTheme = ThemeData(
 
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      // TODO Replace
       textStyle: kButtonTextStyle,
       backgroundColor: kSecondaryColor,
       foregroundColor: Colors.white,
