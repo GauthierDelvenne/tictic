@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tictic/constants/sizes.dart';
 import 'package:tictic/screens/welcome/widgets/logo_welcome.dart';
 
-class Welcome extends StatelessWidget {
-  Welcome({super.key});
+class Welcome extends StatefulWidget {
+  const Welcome({super.key});
 
+  @override
+  State<Welcome> createState() => _WelcomeState();
+}
+
+class _WelcomeState extends State<Welcome> {
   final PageController _pageController = PageController(viewportFraction: 1);
   int _currentPage = 0;
 
@@ -29,6 +33,7 @@ class Welcome extends StatelessWidget {
         ),
         child: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               LogoWelcome(),
               SizedBox(
@@ -38,13 +43,36 @@ class Welcome extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   controller: _pageController,
                   itemCount: _items.length,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentPage = index;
+                    });
+                  },
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: kHorizontalPadding,
+                      ),
                       child: Text(_items[index]),
                     );
                   },
                 ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(_items.length, (index){
+                return Container(
+                  margin: const EdgeInsetsGeometry.symmetric(horizontal: 8),
+                  width: 50,
+                  height: 3,
+                  decoration: BoxDecoration(
+                      color: _currentPage == index
+                          ? Color(0xFF3D5A4F)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(1.5)
+                  ),
+                );
+              }),
               ),
             ],
           ),
