@@ -1,95 +1,66 @@
 // ===== IMPORTS =====
 import 'package:flutter/material.dart';
+import 'package:tictic/constants/colors.dart';
 import 'package:tictic/constants/sizes.dart';
 import 'package:tictic/screens/welcome/widgets/logo_welcome.dart';
+import 'package:tictic/screens/welcome/widgets/text_divider.dart';
+import 'package:tictic/screens/welcome/widgets/text_slider_with_bullet.dart';
 
 // ===== DÉCLARATION DU WIDGET =====
-class Welcome extends StatefulWidget {
+
+class Welcome extends StatelessWidget {
   const Welcome({super.key});
 
   @override
-  State<Welcome> createState() => _WelcomeState(); // Crée l'état associé à ce widget
-}
-
-// ===== ÉTAT DU WIDGET =====
-// C'est ici qu'on gère les données qui peuvent changer
-class _WelcomeState extends State<Welcome> {
-  // PageController = contrôle le carousel de pages
-  // viewportFraction: 1 signifie que chaque page occupe 100% de la largeur
-  final PageController _pageController = PageController(viewportFraction: 1);
-  int _currentPage = 0;
-
-  final _items = [
-    'L’harmonie financière dans vos groupes, en toute simplicité !',
-    'Calculs instantanés, équité garantie avec TicTic !',
-    'Calculs fastidieux ? Non merci. Optez pour la simplicité avec TicTic !',
-    'TicTic : Vos dépenses partagées en toute simplicité !',
-  ];
-
-  // ===== CONSTRUCTION DE L'INTERFACE =====
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(// Structure de base d'un écran Flutter
+    return Scaffold(
       body: Container(
-        width: MediaQuery.of(
-          context,
-        ).size.width, // Prend toute la largeur de l'écran
-        decoration: BoxDecoration(// Ajoute une image de fond
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/img/back1.png"),
             fit: BoxFit.cover,
           ),
         ),
-        child: SafeArea(// SafeArea = évite les zones système (notch, barre de statut)
+        child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Répartit l'espace équitablement entre les widgets
             children: [
+              Spacer(),
               LogoWelcome(),
-              Column(// Regroupe le text avec les bullets
-                children: [
-                  SizedBox(
-                    // TODO : fix
-                    height: kTextSliderHeight,
-                    child: PageView.builder(// PageView.builder = crée un carousel horizontal
-                      scrollDirection: Axis.horizontal,
-                      controller: _pageController,
-                      itemCount: _items.length,
-                      onPageChanged: (index) {// Callback appelé quand on change de page
-                        setState(() {
-                          _currentPage = index;
-                        });
-                      },
-                      itemBuilder: (context, index) {// Construit chaque page du carousel
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: kHorizontalPadding,
-                          ),
-                          child: Text(_items[index]),
-                        );
-                      },
-                    ),
+              Spacer(),
+              TextSliderWithBullets(),
+              Spacer(),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(backgroundColor: kMainColor),
+                child: Text("Continuer sans compte"),
+              ),
+              SizedBox(height: kVerticalPadding),
+              TextDivider(text: 'Ou'),
+              SizedBox(height: kVerticalPadding),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: kHorizontalPadding,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(_items.length, (index) {// List.generate = crée automatiquement 4 indicateurs
-                      return Container(
-                        margin: const EdgeInsets.only(
-                          left: 8,
-                          right: 8,
-                          top: 24,
-                        ),
-                        width: 50,
-                        height: 3,
-                        decoration: BoxDecoration(// Style de l'indicateur
-                          color: _currentPage == index // Couleur verte si c'est la page actuelle, sinon blanc
-                              ? Color(0xFF3D5A4F)
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(1.5),
-                        ),
-                      );
-                    }),
+                  child: Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(backgroundColor: kTertiaryColor),
+                        child: Text("Je me connecte"),
+                      ),
+                      SizedBox(width: kHorizontalPadding),
+                      ElevatedButton(
+                        onPressed: () {
+                        },
+                        style: ElevatedButton.styleFrom(backgroundColor: kTertiaryColor),
+                        child: Text("Créer mon compte"),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ],
           ),
