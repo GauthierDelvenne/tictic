@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tictic/register/register.dart';
 import 'package:tictic/screens/welcome/widgets/text_divider.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/sizes.dart';
+import '../../register/register.dart';
 
 class CallToActions extends StatelessWidget {
   const CallToActions({super.key});
