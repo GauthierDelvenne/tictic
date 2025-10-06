@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tictic/routes.dart';
 import 'package:tictic/screens/welcome/welcome.dart';
 import 'constants/colors.dart';
 // ===== POINT D'ENTRÉE DE L'APPLICATION =====
@@ -16,9 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'TicTic',
+      routes: routes,
       theme: kAppTheme,
-      home: Welcome(),// home = le premier écran qui s'affiche au lancement
     );
   }
 }
